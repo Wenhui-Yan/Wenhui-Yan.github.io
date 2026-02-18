@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>你的名字 | 个人博客</title>
+    <meta name="description" content="记录、发表、思考的个人博客。" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="brand">
+        <div class="brand-mark">Y</div>
+        <div>
+          <div class="brand-title">你的名字</div>
+          <div class="brand-sub">记录与发表 · 个人博客</div>
+        </div>
+      </div>
+      <nav class="site-nav">
+        <a href="#about">关于</a>
+        <a href="#writing">写作</a>
+        <a href="#projects">项目</a>
+        <a href="#contact">联系</a>
+      </nav>
+    </header>
+
+    <main class="layout">
+      <section class="overview">
+        <section id="about" class="hero">
+          <p class="kicker">自我介绍</p>
+          <h1>你的名字</h1>
+          <p class="lead">
+            这是一个用于记录、整理与发布的个人空间。你可以在这里写随笔、
+            分享项目复盘、沉淀学习笔记，也可以作为对外展示的知识索引。
+          </p>
+          <div class="hero-actions">
+            <a class="button" href="#writing">阅读最新文章</a>
+            <a class="button ghost" href="#contact">订阅更新</a>
+          </div>
+        </section>
+
+        <section class="toc">
+          <div class="toc-title">目录</div>
+          <ul id="post-list" class="toc-list"></ul>
+        </section>
+      </section>
+
+      <section class="content">
+        <section id="writing" class="section">
+          <h2>写作</h2>
+          <p class="section-note">点击目录可跳转到对应文章摘要，再进入全文。</p>
+
+          <article
+            id="intro-post-1"
+            class="post-intro"
+            data-title="做减法的内容策略"
+            data-date="2026-02-10"
+            data-category="方法论"
+            data-target="#post-1"
+          >
+            <p class="kicker">方法论</p>
+            <h2>做减法的内容策略</h2>
+            <p class="lead">
+              我开始刻意减少“广撒网”的写作方式，把精力集中到真正能积累复利的主题上。
+              本文记录我在选题、结构、发布频率上的三个调整。
+            </p>
+            <a class="button ghost" href="#post-1">阅读全文</a>
+          </article>
+
+          <article
+            id="intro-post-2"
+            class="post-intro"
+            data-title="一次失败的项目复盘"
+            data-date="2026-01-22"
+            data-category="复盘"
+            data-target="#post-2"
+          >
+            <p class="kicker">复盘</p>
+            <h2>一次失败的项目复盘</h2>
+            <p class="lead">
+              这个项目最终没有上线，但它为我厘清了需求控制、团队协作和决策透明度的重要性。
+            </p>
+            <a class="button ghost" href="#post-2">阅读全文</a>
+          </article>
+
+          <article
+            id="intro-post-3"
+            class="post-intro"
+            data-title="一页式阅读清单"
+            data-date="2025-12-30"
+            data-category="笔记"
+            data-target="#post-3"
+          >
+            <p class="kicker">笔记</p>
+            <h2>一页式阅读清单</h2>
+            <p class="lead">
+              我开始用“一页式”记录读书笔记：一句话摘要、三条关键洞察、一个行动点。
+            </p>
+            <a class="button ghost" href="#post-3">阅读全文</a>
+          </article>
+        </section>
+
+        <section id="posts" class="section">
+          <h2>全文</h2>
+
+          <article id="post-1" class="post" data-title="做减法的内容策略" data-date="2026-02-10">
+            <header class="post-header">
+              <div>
+                <h2>做减法的内容策略</h2>
+                <p class="post-meta">2026-02-10 · 方法论</p>
+              </div>
+            </header>
+            <p>
+              我开始刻意减少“广撒网”的写作方式，把精力集中到真正能积累复利的主题上。
+              本文记录我在选题、结构、发布频率上的三个调整。
+            </p>
+            <h3>选题：更少，但更深</h3>
+            <p>
+              先列出所有想写的内容，再按“可复用性”和“长期价值”排序，把前 20% 做成系列。
+            </p>
+            <h3>结构：一页读完的密度</h3>
+            <p>
+              每篇文章都有结论、过程和可执行清单，让读者能在 5 分钟内把核心带走。
+            </p>
+            <h3>发布：固定节奏</h3>
+            <p>
+              选择每周固定时间发布，避免被“灵感”左右。
+            </p>
+          </article>
+
+          <article id="post-2" class="post" data-title="一次失败的项目复盘" data-date="2026-01-22">
+            <header class="post-header">
+              <div>
+                <h2>一次失败的项目复盘</h2>
+                <p class="post-meta">2026-01-22 · 复盘</p>
+              </div>
+            </header>
+            <p>
+              这个项目最终没有上线，但它为我厘清了需求控制、团队协作和决策透明度的重要性。
+            </p>
+            <h3>需求变更的信号</h3>
+            <p>
+              没有明确的需求边界时，任何“合理的小改动”都会变成成本黑洞。
+            </p>
+            <h3>谁来做最终判断</h3>
+            <p>
+              没有清晰的“最后拍板”角色，团队只会陷入无休止的讨论。
+            </p>
+            <h3>写给下一次的备忘</h3>
+            <p>
+              把这次的决策过程拆成模板，确保下一次能快速对齐事实。
+            </p>
+          </article>
+
+          <article id="post-3" class="post" data-title="一页式阅读清单" data-date="2025-12-30">
+            <header class="post-header">
+              <div>
+                <h2>一页式阅读清单</h2>
+                <p class="post-meta">2025-12-30 · 笔记</p>
+              </div>
+            </header>
+            <p>
+              我开始用“一页式”记录读书笔记：一句话摘要、三条关键洞察、一个行动点。
+            </p>
+            <h3>一句话摘要</h3>
+            <p>
+              让自己能在 30 秒内回忆整本书的核心逻辑。
+            </p>
+            <h3>关键洞察</h3>
+            <p>
+              只保留能改变行动或决策的观点。
+            </p>
+            <h3>行动点</h3>
+            <p>
+              每本书必须对应一个现实中的小实验。
+            </p>
+          </article>
+        </section>
+
+        <section id="projects" class="section">
+          <h2>项目</h2>
+          <div class="cards">
+            <div class="card">
+              <h3>长期主题库</h3>
+              <p>把值得长期深挖的主题整理成知识图谱。</p>
+            </div>
+            <div class="card">
+              <h3>写作仪表盘</h3>
+              <p>追踪写作频率、浏览量与读者反馈的统计面板。</p>
+            </div>
+            <div class="card">
+              <h3>公开笔记</h3>
+              <p>每天 15 分钟，把学习内容拆成可检索的公开片段。</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="contact" class="section contact">
+          <h2>联系</h2>
+          <p class="section-note">如果你想订阅更新或合作，请留下邮箱或社交账号。</p>
+          <form class="contact-form" action="#" method="post">
+            <label>
+              <span>邮箱</span>
+              <input type="email" placeholder="you@example.com" />
+            </label>
+            <label>
+              <span>留言</span>
+              <textarea rows="4" placeholder="想讨论什么？"></textarea>
+            </label>
+            <button type="submit">发送</button>
+          </form>
+        </section>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>© 2026 你的名字 · 保留所有权利</p>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>
