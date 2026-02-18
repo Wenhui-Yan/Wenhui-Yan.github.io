@@ -10,15 +10,24 @@ const buildPostDirectory = () => {
 
     const link = document.createElement("a");
     link.href = `#${post.id}`;
-    link.textContent = title;
 
-    const meta = document.createElement("div");
-    meta.className = "toc-meta";
-    meta.textContent = date;
+    const dateSpan = document.createElement("span");
+    dateSpan.className = "toc-date";
+    dateSpan.textContent = date;
+
+    const dotsSpan = document.createElement("span");
+    dotsSpan.className = "toc-dots";
+
+    const titleSpan = document.createElement("span");
+    titleSpan.className = "toc-text";
+    titleSpan.textContent = title;
+
+    link.appendChild(dateSpan);
+    link.appendChild(dotsSpan);
+    link.appendChild(titleSpan);
 
     const item = document.createElement("li");
     item.appendChild(link);
-    item.appendChild(meta);
 
     fragment.appendChild(item);
   });
@@ -26,7 +35,7 @@ const buildPostDirectory = () => {
   postList.appendChild(fragment);
 };
 
-const revealPosts = () => {
+const revealIntros = () => {
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
@@ -38,9 +47,8 @@ const revealPosts = () => {
     { threshold: 0.2 }
   );
 
-  const fullPosts = document.querySelectorAll(".post");
-  fullPosts.forEach((post) => observer.observe(post));
+  posts.forEach((post) => observer.observe(post));
 };
 
 buildPostDirectory();
-revealPosts();
+revealIntros();
