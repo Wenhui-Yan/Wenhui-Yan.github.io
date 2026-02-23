@@ -8,40 +8,35 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <header class="site-header">
-      <div class="brand">
-        <div class="brand-mark">Y</div>
-        <div>
-          <div class="brand-title">你的名字</div>
-          <div class="brand-sub">记录与发表 · 个人博客</div>
-        </div>
-      </div>
-      <nav class="site-nav">
-        <a href="#about">关于</a>
-        <a href="#writing">写作</a>
-        <a href="#projects">项目</a>
-        <a href="#contact">联系</a>
-      </nav>
-    </header>
-
     <main class="layout">
-      <section class="overview">
-        <section id="about" class="hero">
+      <aside class="sidebar">
+        <section id="about" class="hero sidebar-card">
           <p class="kicker">自我介绍</p>
           <h1>Wenhui Yan</h1>
           <p class="lead">
             这是一个用于记录、整理与发布的个人空间。你可以在这里写随笔、
             分享项目复盘、沉淀学习笔记，也可以作为对外展示的知识索引。
           </p>
+          <section id="contact" class="contact">
+            <h2>联系</h2>
+            <p class="section-note">wenhuiyan233@gmail.com</p>
+          </section>
+        </section>
+        <nav class="site-nav sidebar-nav">
+          <a href="#directory" data-panel-link>目录</a>
+          <a href="#writing" data-panel-link>写作</a>
+          <a href="#projects" data-panel-link>项目</a>
+        </nav>
+      </aside>
+
+      <section class="main-panel">
+        <section id="directory" class="section section-tight">
+          <h2 class="toc-title">Directory</h2>
+          <section class="toc">
+            <ul id="post-list" class="toc-list"></ul>
+          </section>
         </section>
 
-        <h2 class="toc-title">Directory</h2>
-        <section class="toc">
-          <ul id="post-list" class="toc-list"></ul>
-        </section>
-      </section>
-
-      <section class="content">
         <section id="writing" class="section section-tight">
           <h2>Blog</h2>
 
@@ -122,16 +117,11 @@
           </div>
         </section>
 
-        <section id="contact" class="section contact">
-          <h2>联系</h2>
-          <p class="section-note">wenhuiyan233@gmail.com</p>
-        </section>
+        <footer class="site-footer">
+          <p>© 2026 你的名字 · 保留所有权利</p>
+        </footer>
       </section>
     </main>
-
-    <footer class="site-footer">
-      <p>© 2026 你的名字 · 保留所有权利</p>
-    </footer>
 
     <script src="app.js"></script>
   </body>

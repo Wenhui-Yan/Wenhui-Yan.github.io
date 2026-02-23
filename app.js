@@ -1,5 +1,6 @@
 const postList = document.getElementById("post-list");
 const posts = Array.from(document.querySelectorAll(".post-intro"));
+const mainPanel = document.querySelector(".main-panel");
 
 const buildPostDirectory = () => {
   const fragment = document.createDocumentFragment();
@@ -44,11 +45,34 @@ const revealIntros = () => {
         }
       });
     },
-    { threshold: 0.2 }
+    { threshold: 0.2, root: mainPanel || null }
   );
 
   posts.forEach((post) => observer.observe(post));
 };
 
+const bindPanelLinks = () => {
+  const links = document.querySelectorAll('a[href^="#"]');
+
+  links.forEach((link) => {
+    link.addEventListener("click", (event) => {
+      const targetId = link.getAttribute("href");
+      if (!targetId || targetId === "#") {
+        return;
+      }
+
+      const target = document.querySelector(targetId);
+      if (!target) {
+        return;
+      }
+
+      event.preventDefault();
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+      history.replaceState(null, "", targetId);
+    });
+  });
+};
+
 buildPostDirectory();
 revealIntros();
+bindPanelLinks();
