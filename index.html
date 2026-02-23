@@ -1,17 +1,67 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>你的名字 | 个人博客</title>
-    <meta name="description" content="记录、发表、思考的个人博客。" />
+    <title>Wenhui Yan | Personal Website</title>
+    <meta name="description" content="A personal site for writing, publications, and projects." />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <main class="layout">
       <aside class="sidebar">
         <section id="about" class="hero sidebar-card">
-          <h1>Wenhui Yan <span class="cn-name">闫文慧</span></h1>
+          <div class="profile-head">
+            <img class="profile-photo" src="person.jpg" alt="Wenhui Yan portrait" />
+            <div class="profile-links" aria-label="Profile links">
+              <a
+                class="icon-link"
+                href="https://www.researchgate.net/profile/Wenhui-Yan-6"
+                target="_blank"
+                rel="noopener"
+                aria-label="ResearchGate"
+                title="ResearchGate"
+              >
+                <i class="fa-brands fa-researchgate" aria-hidden="true"></i>
+              </a>
+              <a
+                class="icon-link"
+                href="https://github.com/Wenhui-Yan"
+                target="_blank"
+                rel="noopener"
+                aria-label="GitHub"
+                title="GitHub"
+              >
+                <i class="fa-brands fa-github" aria-hidden="true"></i>
+              </a>
+              <a
+                class="icon-link"
+                href="mailto:wenhuiyan@cau.edu.cn"
+                aria-label="Email"
+                title="Email"
+              >
+                <i class="fa-regular fa-envelope" aria-hidden="true"></i>
+              </a>
+              <a
+                class="icon-link"
+                href="WenhuiYan_CV.pdf"
+                target="_blank"
+                rel="noopener"
+                aria-label="Curriculum Vitae"
+                title="Curriculum Vitae"
+              >
+                <span class="cv-label">CV</span>
+              </a>
+            </div>
+          </div>
+          <h1>Wenhui Yan <span class="cn-name">「闫文慧」</span></h1>
           <p class="lead">
             I am a first-year M.S. student in Land Use and Information Technology at
             China Agricultural University, advised by Yelu Zeng. My research interests lie
@@ -27,17 +77,19 @@
             Zeng.
           </p>
           <section id="contact" class="contact">
-            <h2>联系</h2>
-            <p class="section-note">S20253213940@cau.edu.cn</p>
+            <h2>Contact</h2>
+            <p class="section-note">wenhuiyan@cau.edu.cn</p>
           </section>
         </section>
       </aside>
 
       <section class="main-panel">
         <nav class="site-nav panel-nav">
-          <a href="#directory" data-panel-link>目录</a>
-          <a href="#writing" data-panel-link>写作</a>
-          <a href="#projects" data-panel-link>项目</a>
+          <a href="#directory" data-panel-link>Directory</a>
+          <a href="#blogs" data-panel-link>Blogs</a>
+          <a href="#publications" data-panel-link>Publications</a>
+          <a href="#projects" data-panel-link>Projects</a>
+          <a href="#misc" data-panel-link>Misc</a>
         </nav>
 
         <section id="directory" class="section section-tight">
@@ -47,88 +99,245 @@
           </section>
         </section>
 
-        <section id="writing" class="section section-tight">
-          <h2>Blog</h2>
+        <section id="blogs" class="section section-tight">
+          <h2>Blogs</h2>
 
           <article
             id="post-1"
             class="post-intro"
-            data-title="做减法的内容策略"
+            data-title="A Subtractive Content Strategy"
             data-date="2026-02-10"
-            data-category="方法论"
+            data-category="Methodology"
           >
             <div class="intro-meta">
-              <p class="kicker">方法论</p>
+              <p class="kicker">Methodology</p>
               <a class="button ghost" href="posts/post-1.html" target="_blank" rel="noopener">
-                阅读全文
+                Read full post
               </a>
             </div>
-            <h2>做减法的内容策略</h2>
+            <h2>A Subtractive Content Strategy</h2>
             <p class="lead">
-              我开始刻意减少“广撒网”的写作方式，把精力集中到真正能积累复利的主题上。
-              本文记录我在选题、结构、发布频率上的三个调整。
+              I intentionally moved away from broad and scattered writing and focused on
+              themes that can compound over time. This post summarizes three adjustments
+              in topic selection, structure, and publishing cadence.
             </p>
           </article>
 
           <article
             id="post-2"
             class="post-intro"
-            data-title="一次失败的项目复盘"
+            data-title="A Postmortem on a Failed Project"
             data-date="2026-01-22"
-            data-category="复盘"
+            data-category="Postmortem"
           >
             <div class="intro-meta">
-              <p class="kicker">复盘</p>
+              <p class="kicker">Postmortem</p>
               <a class="button ghost" href="posts/post-2.html" target="_blank" rel="noopener">
-                阅读全文
+                Read full post
               </a>
             </div>
-            <h2>一次失败的项目复盘</h2>
+            <h2>A Postmortem on a Failed Project</h2>
             <p class="lead">
-              这个项目最终没有上线，但它为我厘清了需求控制、团队协作和决策透明度的重要性。
+              This project never shipped, but it clarified the importance of scope control,
+              team coordination, and decision transparency.
             </p>
           </article>
 
           <article
             id="post-3"
             class="post-intro"
-            data-title="一页式阅读清单"
+            data-title="A One-Page Reading Sheet"
             data-date="2025-12-30"
-            data-category="笔记"
+            data-category="Notes"
           >
             <div class="intro-meta">
-              <p class="kicker">笔记</p>
+              <p class="kicker">Notes</p>
               <a class="button ghost" href="posts/post-3.html" target="_blank" rel="noopener">
-                阅读全文
+                Read full post
               </a>
             </div>
-            <h2>一页式阅读清单</h2>
+            <h2>A One-Page Reading Sheet</h2>
             <p class="lead">
-              我开始用“一页式”记录读书笔记：一句话摘要、三条关键洞察、一个行动点。
+              I started using a one-page format for reading notes: one-sentence summary,
+              three key insights, and one action item.
             </p>
           </article>
         </section>
 
+        <section id="publications" class="section section-tight">
+          <h2>Publications</h2>
+          <article class="pub-item">
+            <h3>
+              Escape Ratio Contributes More Than Fluorescence Yield to SIF GPP
+              Relationship Over Crops and Rainforest
+            </h3>
+            <p class="pub-authors">
+              Wenhui Yan, Yelu Zeng<span class="corr-mark">*</span>, Xinhong Zhang, Weike
+              Zhao, Yongyuan Gao, Yaohang He, Dalei Hao<span class="corr-mark">*</span>
+            </p>
+            <p class="pub-venue">IEEE Geoscience and Remote Sensing Letters, 2024</p>
+            <p class="pub-links">
+              <a href="https://doi.org/10.1109/LGRS.2024.3432820" target="_blank" rel="noopener">
+                webpage
+              </a>
+              <span class="pub-sep">|</span>
+              <a href="https://www.osti.gov/servlets/purl/2552923" target="_blank" rel="noopener">
+                pdf
+              </a>
+              <span class="pub-sep">|</span>
+              <button class="pub-abstract-toggle" type="button" aria-expanded="false">
+                abstract
+              </button>
+            </p>
+            <div class="pub-abstract" hidden>
+              Solar-induced chlorophyll fluorescence (SIF) is an effective indicator for
+              tracking gross primary productivity (GPP), but the relative roles of canopy
+              structure and physiology remain unclear. This study evaluates the contributions
+              of photon escape ratio and fluorescence yield to the SIF-GPP relationship across
+              crops and rainforest using multiple satellite products. Results show that
+              structure-related escape ratio better captures light use efficiency variation than
+              fluorescence yield, highlighting its strong potential for monitoring GPP changes
+              within and across biomes.
+            </div>
+          </article>
+          <article class="pub-item">
+            <h3>
+              Tree-level carbon stock estimations across diverse species using multi-source
+              remote sensing integration
+            </h3>
+            <p class="pub-authors">
+              Li Qing, Jia Yin, Xiaoxin Zhang, Dalei Hao, Matheus Pinheiro Ferreira, Wenhui
+              Yan, Ye Tian, Da Zhang, Shen Tan, Shengn Nie, Tianyu An, Xiaoyao Li, Jianxi
+              Huang, Wei Su, Yelu Zeng<span class="corr-mark">*</span>
+            </p>
+            <p class="pub-venue">Computers and Electronics in Agriculture, 2025</p>
+            <p class="pub-links">
+              <a href="https://doi.org/10.1016/j.compag.2025.109904" target="_blank" rel="noopener">
+                webpage
+              </a>
+              <span class="pub-sep">|</span>
+              <a href="https://www.osti.gov/servlets/purl/2575522" target="_blank" rel="noopener">
+                pdf
+              </a>
+              <span class="pub-sep">|</span>
+              <button class="pub-abstract-toggle" type="button" aria-expanded="false">
+                abstract
+              </button>
+            </p>
+            <div class="pub-abstract" hidden>
+              This study integrates UAV LiDAR and high-resolution optical imagery to estimate
+              individual-tree biomass and carbon stock across species. The method improves
+              accuracy through species-specific modeling and by combining structural variables
+              with vegetation indices. It reports substantial gains over single-source and
+              non-species-specific approaches, showing strong potential for large-scale precise
+              forest carbon monitoring.
+            </div>
+          </article>
+          <article class="pub-item">
+            <h3>
+              Mapping tree height in complex terrain of northern China using ultra-high-
+              resolution images
+            </h3>
+            <p class="pub-authors">
+              Qing Li, Xiaoxin Zhang, Dalei Hao, Wenhui Yan, Qi Zhao, Ye Tian,
+              Yelu Zeng<span class="corr-mark">*</span>
+            </p>
+            <p class="pub-venue">Smart Agricultural Technology, 2025</p>
+            <p class="pub-links">
+              <a href="https://doi.org/10.1016/j.atech.2025.101338" target="_blank" rel="noopener">
+                webpage
+              </a>
+              <span class="pub-sep">|</span>
+              <a href="https://www.osti.gov/servlets/purl/2587780" target="_blank" rel="noopener">
+                pdf
+              </a>
+              <span class="pub-sep">|</span>
+              <button class="pub-abstract-toggle" type="button" aria-expanded="false">
+                abstract
+              </button>
+            </p>
+            <div class="pub-abstract" hidden>
+              Focusing on complex mountainous terrain in northern China, this paper compares
+              spectral-only and terrain-enhanced strategies for tree-height mapping from
+              ultra-high-resolution imagery. Among tested models, XGBoost with spectral and
+              topographic features performs best, producing a 3 m tree-height map with robust
+              accuracy. The study also highlights limitations of existing global tree-height
+              products in complex terrain.
+            </div>
+          </article>
+          <article class="pub-item">
+            <h3>
+              Global-PCG-10: a 10 m global map of plastic-covered greenhouses derived from
+              Sentinel-2 in 2020
+            </h3>
+            <p class="pub-authors">
+              Bowen Niu, Quanlong Feng<span class="corr-mark">*</span>, Bingwen Qiu, Shuai
+              Su, Xinmin Zhang, Rongji Cui, Xinhong Zhang, Fanli Sun, Wenhui Yan, Siyuan
+              Zhao, Hanyu Shi, Cong Ou, Xiaolu Yan, Jianhua Gong, Gaofei Yin, Jianxi Huang,
+              Jiantao Liu, Bingbo Gao, Xiaochuang Yao, Jianyu Yang, and Dehai Zhu
+            </p>
+            <p class="pub-venue">Earth System Science Data, 2025</p>
+            <p class="pub-links">
+              <a href="https://doi.org/10.5194/essd-17-5065-2025" target="_blank" rel="noopener">
+                webpage
+              </a>
+              <span class="pub-sep">|</span>
+              <a
+                href="https://essd.copernicus.org/articles/17/5065/2025/essd-17-5065-2025.pdf"
+                target="_blank"
+                rel="noopener"
+              >
+                pdf
+              </a>
+              <span class="pub-sep">|</span>
+              <button class="pub-abstract-toggle" type="button" aria-expanded="false">
+                abstract
+              </button>
+            </p>
+            <div class="pub-abstract" hidden>
+              This paper presents Global-PCG-10, a 10 m global dataset of plastic-covered
+              greenhouses built from Sentinel-2 with deep learning and active-learning label
+              refinement. The resulting map reaches high overall accuracy and quantifies global
+              PCG distribution patterns, with strong concentration in Asia and especially China.
+              The dataset also reveals systematic misclassification of PCGs in existing global
+              land-cover products.
+            </div>
+          </article>
+        </section>
+
         <section id="projects" class="section">
-          <h2>项目</h2>
+          <h2>Projects</h2>
           <div class="cards">
             <div class="card">
-              <h3>长期主题库</h3>
-              <p>把值得长期深挖的主题整理成知识图谱。</p>
+              <h3>Long-Term Topic Map</h3>
+              <p>Organize high-value topics into an evolving knowledge graph.</p>
             </div>
             <div class="card">
-              <h3>写作仪表盘</h3>
-              <p>追踪写作频率、浏览量与读者反馈的统计面板。</p>
+              <h3>Writing Dashboard</h3>
+              <p>Track writing frequency, page views, and reader feedback trends.</p>
             </div>
             <div class="card">
-              <h3>公开笔记</h3>
-              <p>每天 15 分钟，把学习内容拆成可检索的公开片段。</p>
+              <h3>Public Notes</h3>
+              <p>Spend 15 minutes daily turning learning into searchable public notes.</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="misc" class="section section-tight">
+          <h2>Misc</h2>
+          <div class="misc-grid">
+            <p class="misc-year">2023</p>
+            <div class="misc-list">
+              <p>Renewable Energy Innovation Competition (Third Prize)</p>
+              <p>ESRI China Cup - Remote Sensing Application Track (Excellence Prize)</p>
+              <p>ESRI China Cup - Map Storytelling Track (Third Prize)</p>
+              <p>China Agricultural University Mathematical Modeling Competition (Third Prize)</p>
             </div>
           </div>
         </section>
 
         <footer class="site-footer">
-          <p>© 2026 你的名字 · 保留所有权利</p>
+          <p>© 2026 Wenhui Yan · All rights reserved</p>
         </footer>
       </section>
     </main>

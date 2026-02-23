@@ -73,6 +73,34 @@ const bindPanelLinks = () => {
   });
 };
 
+const bindPublicationAbstracts = () => {
+  const toggles = document.querySelectorAll(".pub-abstract-toggle");
+
+  toggles.forEach((toggle) => {
+    toggle.addEventListener("click", () => {
+      const container = toggle.closest(".pub-item");
+      if (!container) {
+        return;
+      }
+
+      const abstract = container.querySelector(".pub-abstract");
+      if (!abstract) {
+        return;
+      }
+
+      const isHidden = abstract.hasAttribute("hidden");
+      if (isHidden) {
+        abstract.removeAttribute("hidden");
+        toggle.setAttribute("aria-expanded", "true");
+      } else {
+        abstract.setAttribute("hidden", "");
+        toggle.setAttribute("aria-expanded", "false");
+      }
+    });
+  });
+};
+
 buildPostDirectory();
 revealIntros();
 bindPanelLinks();
+bindPublicationAbstracts();
