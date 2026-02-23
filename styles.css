@@ -103,14 +103,14 @@ a:hover {
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 3px;
   font-size: 1rem;
   line-height: 1.45;
 }
 
 .toc-list a {
   border-bottom: none;
-  padding: 3px 0;
+  padding: 0;
   display: flex;
   align-items: baseline;
   gap: 8px;
@@ -148,7 +148,9 @@ a:hover {
   display: flex;
   flex-direction: column;
   gap: 24px;
-  padding-right: 6px;
+  margin-right: -8vw;
+  padding-right: calc(8vw + 12px);
+  scrollbar-gutter: stable;
   scroll-behavior: smooth;
 }
 
@@ -196,13 +198,13 @@ a:hover {
 
 .post-intro {
   background: transparent;
-  padding: 18px 0;
+  padding: 16px 0;
   border-radius: 0;
   border: none;
   position: relative;
   box-shadow: none;
   display: grid;
-  gap: 6px;
+  gap: 0;
   opacity: 0;
   transform: translateY(12px);
   transition: opacity 400ms ease, transform 400ms ease;
@@ -322,8 +324,13 @@ a:hover {
 }
 
 .post-intro h2 {
-  font-size: clamp(1.9rem, 2.6vw, 2.6rem);
-  margin: 0 0 2px;
+  font-size: 1rem;
+  margin: 0 0 3px;
+  font-weight: 400;
+}
+
+#blogs .post-intro h2 {
+  font-size: 1rem !important;
 }
 
 .lead {
@@ -351,9 +358,13 @@ a:hover {
   margin: 0;
 }
 
+.post-intro .intro-meta {
+  margin-bottom: 3px;
+}
+
 .post-intro .kicker {
   margin: 0;
-  font-size: 1.15rem;
+  font-size: 1rem;
   letter-spacing: 0;
   text-transform: none;
 }
@@ -389,8 +400,8 @@ a:hover {
 .post-intro .button.ghost {
   border: none;
   padding: 0;
-  font-size: 1.15rem;
-  color: var(--muted);
+  font-size: 1rem;
+  color: #1a4fa3;
 }
 
 .section h2 {
@@ -431,7 +442,7 @@ a:hover {
 .pub-item {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 3px;
 }
 
 .pub-item h3 {
@@ -521,9 +532,17 @@ a:hover {
 .card {
   background: white;
   border-radius: var(--radius);
-  padding: 18px;
-  border: 1px solid var(--paper-deep);
+  padding: 12px;
+  border: 1px solid #111;
   box-shadow: var(--shadow);
+}
+
+.card h3 {
+  margin: 0 0 6px;
+}
+
+.card p {
+  margin: 0;
 }
 
 .contact-form {
@@ -645,7 +664,9 @@ button[type="submit"] {
   .main-panel {
     height: auto;
     overflow: visible;
+    margin-right: 0;
     padding-right: 0;
+    scrollbar-gutter: auto;
   }
 
   .panel-nav {
