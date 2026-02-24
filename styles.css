@@ -421,6 +421,7 @@ a:hover {
 .post {
   padding: 32px 0 40px;
   border-bottom: 1px solid var(--line);
+  line-height: 1.45;
 }
 
 .post-header {
