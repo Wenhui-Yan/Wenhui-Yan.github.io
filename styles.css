@@ -57,9 +57,10 @@ a:hover {
   height: 100vh;
   padding: 24px 8vw;
   display: grid;
-  grid-template-columns: minmax(280px, 360px) minmax(0, 1fr);
+  grid-template-columns: minmax(280px, 360px) minmax(480px, 800px);
   gap: 28px;
   align-items: start;
+  justify-content: space-between;
 }
 
 .sidebar {
@@ -114,6 +115,7 @@ a:hover {
   display: flex;
   align-items: baseline;
   gap: 8px;
+  min-width: 0;
 }
 
 .toc-date,
@@ -152,6 +154,7 @@ a:hover {
   padding-right: calc(8vw + 12px);
   scrollbar-gutter: stable;
   scroll-behavior: smooth;
+  min-width: 0;
 }
 
 .main-panel .section {
@@ -678,6 +681,12 @@ button[type="submit"] {
     margin-right: 0;
     padding-right: 0;
     scrollbar-gutter: auto;
+  }
+
+  .toc-date,
+  .toc-text {
+    white-space: normal;
+    overflow-wrap: anywhere;
   }
 
   .panel-nav {
