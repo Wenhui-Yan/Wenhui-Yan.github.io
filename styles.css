@@ -551,6 +551,11 @@ a:hover {
   margin: 0;
 }
 
+.project-link {
+  color: #1a4fa3;
+  border-bottom: none;
+}
+
 .contact-form {
   display: grid;
   gap: 16px;
