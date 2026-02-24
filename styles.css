@@ -286,7 +286,7 @@ a:hover {
 .profile-links {
   display: inline-flex;
   flex-direction: column;
-  gap: 1px;
+  gap: 0;
   padding-top: 3px;
 }
 
@@ -338,6 +338,11 @@ a:hover {
   max-width: 620px;
   color: var(--muted);
   line-height: 1.45;
+}
+
+.advisor-link {
+  color: #1a4fa3;
+  border-bottom: none;
 }
 
 .hero-actions {
