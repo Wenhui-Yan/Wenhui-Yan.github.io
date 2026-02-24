@@ -482,7 +482,7 @@ a:hover {
 }
 
 .pub-links a,
-.pub-abstract-toggle {
+.pub-toggle {
   color: #1a4fa3;
   border-bottom: none;
   background: none;
@@ -493,7 +493,7 @@ a:hover {
 }
 
 .pub-links a:hover,
-.pub-abstract-toggle:hover {
+.pub-toggle:hover {
   color: #163f82;
   text-decoration: underline;
 }
@@ -509,6 +509,18 @@ a:hover {
   font-size: 1rem;
   line-height: 1.45;
   color: var(--muted);
+}
+
+.pub-bibtex {
+  margin: 0;
+  padding: 2px 0 0 0;
+}
+
+.pub-bibtex pre {
+  margin: 0;
+  white-space: pre-wrap;
+  font-size: 0.9rem;
+  line-height: 1.45;
 }
 
 .misc-grid {

@@ -73,8 +73,8 @@ const bindPanelLinks = () => {
   });
 };
 
-const bindPublicationAbstracts = () => {
-  const toggles = document.querySelectorAll(".pub-abstract-toggle");
+const bindPublicationToggles = () => {
+  const toggles = document.querySelectorAll(".pub-toggle");
 
   toggles.forEach((toggle) => {
     toggle.addEventListener("click", () => {
@@ -83,17 +83,22 @@ const bindPublicationAbstracts = () => {
         return;
       }
 
-      const abstract = container.querySelector(".pub-abstract");
-      if (!abstract) {
+      const targetSelector = toggle.getAttribute("data-target");
+      if (!targetSelector) {
         return;
       }
 
-      const isHidden = abstract.hasAttribute("hidden");
+      const panel = container.querySelector(targetSelector);
+      if (!panel) {
+        return;
+      }
+
+      const isHidden = panel.hasAttribute("hidden");
       if (isHidden) {
-        abstract.removeAttribute("hidden");
+        panel.removeAttribute("hidden");
         toggle.setAttribute("aria-expanded", "true");
       } else {
-        abstract.setAttribute("hidden", "");
+        panel.setAttribute("hidden", "");
         toggle.setAttribute("aria-expanded", "false");
       }
     });
@@ -103,4 +108,4 @@ const bindPublicationAbstracts = () => {
 buildPostDirectory();
 revealIntros();
 bindPanelLinks();
-bindPublicationAbstracts();
+bindPublicationToggles();
