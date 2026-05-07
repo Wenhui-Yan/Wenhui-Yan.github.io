@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>A Postmortem on a Failed Project | Wenhui Yan</title>
+    <title>Kernel-Driven BRDF Models: From RTLT to RTCLSR | Wenhui Yan</title>
     <meta
       name="description"
-      content="A postmortem on a failed project: scope control, collaboration mechanisms, and decision transparency."
+      content="A technical note on kernel-driven BRDF models, covering the RossThick-LiSparse (RTLT) framework and the RTCLSR hotspot correction used in MODIS MCD43."
     />
     <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="../styles.css" />
@@ -30,29 +30,112 @@
         <article class="post">
           <header class="post-header">
             <div>
-              <h1>A Postmortem on a Failed Project</h1>
-              <p class="post-meta">2026-01-22 · Postmortem</p>
+              <h1>Kernel-Driven BRDF Models: From RTLT to RTCLSR</h1>
+              <p class="post-meta">2026-01-22 · Remote Sensing</p>
             </div>
           </header>
+
           <p>
-            This project did not go live, but it clarified the importance of scope
-            control, team collaboration, and transparent decision-making.
+            The Bidirectional Reflectance Distribution Function (BRDF) describes how a surface
+            reflects light as a function of illumination and viewing geometry. Kernel-driven
+            semi-empirical models decompose the BRDF into a weighted sum of basis functions
+            (kernels), each capturing a distinct scattering mechanism. This note walks through
+            the two models I use most: RTLT and its hotspot-corrected variant RTCLSR.
           </p>
-          <h3>Signals of Requirement Drift</h3>
+
+          <h3>The Kernel-Driven Framework</h3>
           <p>
-            Without clear scope boundaries, any "small reasonable change" can quickly
-            become a cost sink.
+            The general form is:
           </p>
-          <h3>Who Makes the Final Decision</h3>
           <p>
-            Without a clearly assigned final decision-maker, teams tend to get trapped in
-            endless discussions.
+            <em>R(θ<sub>s</sub>, θ<sub>v</sub>, φ) = f<sub>iso</sub> + f<sub>vol</sub> · K<sub>vol</sub> + f<sub>geo</sub> · K<sub>geo</sub></em>
           </p>
-          <h3>Notes for the Next Attempt</h3>
           <p>
-            I translated this decision process into a reusable template so future teams can
-            align on facts faster.
+            where <em>f<sub>iso</sub></em>, <em>f<sub>vol</sub></em>, and <em>f<sub>geo</sub></em>
+            are the fitted weights, and the two kernels represent volumetric (canopy multiple
+            scattering) and geometric-optical (shadow/crown) contributions respectively.
+            MODIS MCD43 uses this framework with the RossThick volumetric kernel and the
+            LiSparse-Reciprocal geometric kernel (b/r = 1, h/b = 2).
           </p>
+
+          <h3>Understanding the Scattering Angle</h3>
+          <p>
+            The scattering angle ξ is the angle between the solar and viewing directions.
+            Its value drives the dominant scattering regime:
+          </p>
+          <ul>
+            <li><strong>Small ξ (backscatter / hotspot):</strong> the observer looks back toward
+            the sun. Shadows are hidden behind crowns, so reflectance peaks sharply.</li>
+            <li><strong>Large ξ (forward scatter):</strong> shadows are exposed, crowns appear
+            darker, and reflectance decreases.</li>
+            <li><strong>Nadir observation:</strong> a special case where the viewing zenith angle
+            (VZA) is zero; the hotspot contribution is averaged out across all azimuth angles.</li>
+          </ul>
+
+          <h3>Two Calculation Paths: BRF vs. Albedo</h3>
+          <p>
+            The same kernel weights support two distinct outputs depending on what you integrate over:
+          </p>
+          <ul>
+            <li><strong>BRF (Bidirectional Reflectance Factor):</strong> evaluate the model at a
+            specific (θ<sub>s</sub>, θ<sub>v</sub>, φ). This is geometry-driven — "how bright does
+            the surface look from this direction?"</li>
+            <li><strong>Black-sky albedo:</strong> integrate BRF over all viewing directions for a
+            fixed solar zenith angle. The result depends only on SZA; VZA and RAA drop out. The
+            hotspot leaves only a weak average contribution after integration.</li>
+          </ul>
+
+          <h3>1. RTLT Model</h3>
+          <p>
+            The RossThick-LiSparse (RTLT) model pairs the RossThick volumetric kernel with the
+            LiSparse geometric kernel. The LiSparse kernel includes a shadow-overlap function that
+            accounts for mutual shadowing between crowns. This combination works well across most
+            viewing geometries but systematically underestimates reflectance near the hotspot
+            direction, where the shadow-hiding effect is strongest.
+          </p>
+
+          <h3>2. RTCLSR Model: Hotspot Correction</h3>
+          <p>
+            RTCLSR replaces the standard RossThick kernel with a corrected version that adds an
+            exponential hotspot factor, allowing the model to reproduce the sharp reflectance peak
+            near the backscatter direction. The correction multiplier takes the form:
+          </p>
+          <p>
+            <em>K<sub>vol</sub><sup>CLSR</sup> = K<sub>vol</sub><sup>RT</sup> · (1 + c<sub>1</sub> · exp(−ξ / c<sub>2</sub>))</em>
+          </p>
+          <p>
+            where <em>c<sub>1</sub></em> controls the hotspot amplitude and <em>c<sub>2</sub></em>
+            controls its angular width. The recommended band-specific values derived from POLDER data are:
+          </p>
+          <ul>
+            <li>Band 1 (Red): c<sub>1</sub> = 0.7, c<sub>2</sub> = 3.1</li>
+            <li>Band 2 (NIR): c<sub>1</sub> = 0.6, c<sub>2</sub> = 3.2</li>
+            <li>Band 3 (Blue): c<sub>1</sub> = 0.5, c<sub>2</sub> = 3.2</li>
+          </ul>
+          <p>
+            A constant offset is also applied to keep the nadir (0, 0, 0) reflectance equal to
+            <em>f<sub>iso</sub></em>, ensuring consistency when plugging MODIS MCD43 weights
+            directly into the corrected kernel. If you use the MODIS weights without re-inverting,
+            the error is generally within an acceptable range — but re-inverting with the RTCLSR
+            kernel gives better results.
+          </p>
+
+          <h3>Practical Notes for MODIS MCD43</h3>
+          <p>
+            MODIS MCD43 products are generated with RTLT (LiSparse-Reciprocal, b/r = 1, h/b = 2).
+            When applying RTCLSR corrections using the published MCD43 weights directly, the nadir
+            offset ensures the isotropic term remains consistent. For studies that require accurate
+            hotspot-direction reflectance — such as BRDF normalization of SIF or vegetation indices
+            to a common geometry — re-inverting with RTCLSR is the more rigorous path.
+          </p>
+
+          <h3>References</h3>
+          <ul>
+            <li>Yan et al. (2022). <a href="https://doi.org/10.3390/f13030435" target="_blank">doi:10.3390/f13030435</a></li>
+            <li>Jiao et al. (2016). <a href="https://doi.org/10.1016/j.rse.2016.08.007" target="_blank">doi:10.1016/j.rse.2016.08.007</a></li>
+            <li>Jiao et al. (2018). <a href="https://doi.org/10.1016/j.rse.2018.02.041" target="_blank">doi:10.1016/j.rse.2018.02.041</a></li>
+            <li><a href="https://www.umb.edu/spectralmass/terra-aqua-modis/modis-brdf-albedo-product-mcd43/" target="_blank">MODIS BRDF/Albedo/NBAR Product MCD43 documentation</a></li>
+          </ul>
         </article>
       </section>
     </main>
