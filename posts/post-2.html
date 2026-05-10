@@ -10,6 +10,22 @@
     />
     <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="../styles.css" />
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [["\\(", "\\)"]],
+          displayMath: [["\\[", "\\]"]]
+        },
+        svg: {
+          fontCache: "global"
+        }
+      };
+    </script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
+    ></script>
   </head>
   <body class="post-page">
     <header class="subpage-topbar">
@@ -47,11 +63,14 @@
           <p>
             The general form is:
           </p>
+          <div class="math-block">
+            \[
+            R(\theta_s,\theta_v,\phi)
+            = f_{iso} + f_{vol}K_{vol} + f_{geo}K_{geo}
+            \]
+          </div>
           <p>
-            <em>R(θ<sub>s</sub>, θ<sub>v</sub>, φ) = f<sub>iso</sub> + f<sub>vol</sub> · K<sub>vol</sub> + f<sub>geo</sub> · K<sub>geo</sub></em>
-          </p>
-          <p>
-            where <em>f<sub>iso</sub></em>, <em>f<sub>vol</sub></em>, and <em>f<sub>geo</sub></em>
+            where \(f_{iso}\), \(f_{vol}\), and \(f_{geo}\)
             are the fitted weights, and the two kernels represent volumetric (canopy multiple
             scattering) and geometric-optical (shadow/crown) contributions respectively.
             MODIS MCD43 uses this framework with the RossThick volumetric kernel and the
@@ -63,6 +82,13 @@
             The scattering angle ξ is the angle between the solar and viewing directions.
             Its value drives the dominant scattering regime:
           </p>
+          <div class="math-block">
+            \[
+            \cos\xi
+            = \cos\theta_s\cos\theta_v
+            + \sin\theta_s\sin\theta_v\cos\phi
+            \]
+          </div>
           <ul>
             <li><strong>Small ξ (backscatter / hotspot):</strong> the observer looks back toward
             the sun. Shadows are hidden behind crowns, so reflectance peaks sharply.</li>
@@ -93,6 +119,57 @@
             viewing geometries but systematically underestimates reflectance near the hotspot
             direction, where the shadow-hiding effect is strongest.
           </p>
+          <p>
+            The RossThick volumetric kernel is:
+          </p>
+          <div class="math-block">
+            \[
+            K_{RossThick}
+            =
+            \frac{
+              \left(\frac{\pi}{2}-\xi\right)\cos\xi + \sin\xi
+            }{
+              \cos\theta_s + \cos\theta_v
+            }
+            - \frac{\pi}{4}
+            \]
+          </div>
+          <p>
+            A compact form of the LiTransit / LiSparse geometric kernel can be written with the
+            transformed angles \(\theta_s'\), \(\theta_v'\), and \(\xi'\):
+          </p>
+          <div class="math-block">
+            \[
+            K_{LiTransit}
+            =
+            \begin{cases}
+            \dfrac{1+\cos\xi'}{\cos\theta_s'\cos\theta_v' B} - 2,
+            & B > 2 \\[0.8em]
+            -B + \dfrac{1+\cos\xi'}{2\cos\theta_s'\cos\theta_v'},
+            & B \le 2
+            \end{cases}
+            \]
+          </div>
+          <div class="math-block">
+            \[
+            B
+            =
+            \sec\theta_s' + \sec\theta_v'
+            - O(\theta_s', \theta_v', \phi)
+            \]
+          </div>
+          <p>
+            The RTLT reflectance is then:
+          </p>
+          <div class="math-block">
+            \[
+            R_{RTLT}
+            =
+            f_{iso}
+            + f_{vol}K_{RossThick}
+            + f_{geo}K_{LiTransit}
+            \]
+          </div>
 
           <h3>2. RTCLSR Model: Hotspot Correction</h3>
           <p>
@@ -100,21 +177,87 @@
             exponential hotspot factor, allowing the model to reproduce the sharp reflectance peak
             near the backscatter direction. The correction multiplier takes the form:
           </p>
+          <div class="math-block">
+            \[
+            K_{RT}
+            =
+            K_{RossThick}
+            =
+            \frac{
+              \left(\frac{\pi}{2}-\xi\right)\cos\xi + \sin\xi
+            }{
+              \cos\theta_s + \cos\theta_v
+            }
+            - \frac{\pi}{4}
+            \]
+          </div>
+          <div class="math-block">
+            \[
+            K_{RTC}
+            =
+            K_{RossThick\text{-}Chen}
+            =
+            \frac{
+              \left(\frac{\pi}{2}-\xi\right)\cos\xi + \sin\xi
+            }{
+              \cos\theta_s + \cos\theta_v
+            }
+            \left(1+C_1e^{-\xi/C_2}\right)
+            - \frac{\pi}{4}
+            \]
+          </div>
           <p>
-            <em>K<sub>vol</sub><sup>CLSR</sup> = K<sub>vol</sub><sup>RT</sup> · (1 + c<sub>1</sub> · exp(−ξ / c<sub>2</sub>))</em>
-          </p>
-          <p>
-            where <em>c<sub>1</sub></em> controls the hotspot amplitude and <em>c<sub>2</sub></em>
+            where \(C_1\) controls the hotspot amplitude and \(C_2\)
             controls its angular width. The recommended band-specific values derived from POLDER data are:
           </p>
           <ul>
-            <li>Band 1 (Red): c<sub>1</sub> = 0.7, c<sub>2</sub> = 3.1</li>
-            <li>Band 2 (NIR): c<sub>1</sub> = 0.6, c<sub>2</sub> = 3.2</li>
-            <li>Band 3 (Blue): c<sub>1</sub> = 0.5, c<sub>2</sub> = 3.2</li>
+            <li>Band 1 (Red): \(C_1 = 0.7\), \(C_2 = 3.1\)</li>
+            <li>Band 2 (NIR): \(C_1 = 0.6\), \(C_2 = 3.2\)</li>
+            <li>Band 3 (Blue): \(C_1 = 0.5\), \(C_2 = 3.2\)</li>
           </ul>
           <p>
+            The LSR geometric kernel can be expressed as the shadow-overlap term minus the
+            transformed secant terms:
+          </p>
+          <div class="math-block">
+            \[
+            \begin{aligned}
+            K_{LSR}
+            &=
+            O(\theta_s',\theta_v',\phi)
+            - \sec\theta_s'
+            - \sec\theta_v'
+            + \frac{1}{2}(1+\cos\xi')\sec\theta_s'\sec\theta_v' \\
+            &=
+            P(\theta_s',\theta_v',\phi)
+            - B(\theta_s',\theta_v',\phi)
+            \end{aligned}
+            \]
+          </div>
+          <p>
+            Therefore the hotspot-corrected and uncorrected LSR formulations are:
+          </p>
+          <div class="math-block">
+            \[
+            R_{RTCLSR}
+            =
+            f_{iso}
+            + f_{vol}K_{RTC}
+            + f_{geo}K_{LSR}
+            \]
+          </div>
+          <div class="math-block">
+            \[
+            R_{RTLSR}
+            =
+            f_{iso}
+            + f_{vol}K_{RT}
+            + f_{geo}K_{LSR}
+            \]
+          </div>
+          <p>
             A constant offset is also applied to keep the nadir (0, 0, 0) reflectance equal to
-            <em>f<sub>iso</sub></em>, ensuring consistency when plugging MODIS MCD43 weights
+            \(f_{iso}\), ensuring consistency when plugging MODIS MCD43 weights
             directly into the corrected kernel. If you use the MODIS weights without re-inverting,
             the error is generally within an acceptable range — but re-inverting with the RTCLSR
             kernel gives better results.

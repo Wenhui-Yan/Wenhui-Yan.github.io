@@ -60,7 +60,7 @@ a:hover {
   grid-template-columns: minmax(280px, 360px) minmax(480px, 800px);
   gap: 28px;
   align-items: start;
-  justify-content: space-between;
+  justify-content: center;
 }
 
 .sidebar {
@@ -442,6 +442,17 @@ a:hover {
 .post-meta {
   color: var(--muted);
   font-size: 0.95rem;
+}
+
+.math-block {
+  margin: 18px 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 4px 0;
+}
+
+.math-block mjx-container {
+  min-width: max-content;
 }
 
 .pub-item + .pub-item {
